@@ -9,8 +9,8 @@ Create directories:
 mkdir /home/user/docker
 mkdir /home/user/data
 
-mkdir -p /home/user/data/torrents/tv
-mkdir -p /home/user/data/torrents/movies
+mkdir -p /home/user/data/completed/radarr
+mkdir -p /home/user/data/completed/sonarr
 mkdir -p /home/user/data/media/tv
 mkdir -p /home/user/data/media/movies
 
@@ -42,3 +42,4 @@ Transmission: http://ip:9091/transmission/web
 Prowlarr: http://ip:9696
 Sonarr: http://ip:8989
 Radarr: http://ip:7878
+Seerr: http://ip:5055
