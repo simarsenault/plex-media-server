@@ -1,6 +1,8 @@
 # plex-media-server
 
 ## Setup
+Replace `user` by your username and `1000:1000` by your user id and group id. 
+
 Create directories:
 
 ```
@@ -11,6 +13,9 @@ mkdir -p /home/user/data/torrents/tv
 mkdir -p /home/user/data/torrents/movies
 mkdir -p /home/user/data/media/tv
 mkdir -p /home/user/data/media/movies
+
+mkdir -p /home/user/docker/seerr/config
+sudo chown -R "1000:1000" "/home/user/docker/seerr/config"
 ```
 
 Copy the .env file:
