@@ -55,6 +55,7 @@ services:
       - TRANSMISSION_RPC_USERNAME=${TRANSMISSION_RPC_USERNAME:-}
       - TRANSMISSION_RPC_PASSWORD=${TRANSMISSION_RPC_PASSWORD:-}
     volumes:
+      - ${DOCKER_DIR}/transmission-home:/config/transmission-home
       - ${MEDIA_DIR}:/data
     restart: unless-stopped
 
