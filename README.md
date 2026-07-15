@@ -10,6 +10,7 @@ mkdir /home/user/docker
 mkdir /home/user/data
 
 mkdir -p /home/user/docker/transmission-home
+mkdir -p /home/user/docker/tautulli
 
 mkdir -p /home/user/data/completed/radarr
 mkdir -p /home/user/data/completed/sonarr
@@ -45,3 +46,4 @@ docker compose exec transmission curl -s https://ipinfo.io | grep -E '"(ip|count
 - Sonarr: http://ip:8989
 - Radarr: http://ip:7878
 - Seerr: http://ip:5055
+- Tautulli: http://ip:8181

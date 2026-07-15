@@ -106,3 +106,17 @@ services:
       timeout: 3s
       interval: 15s
       retries: 3
+
+  # ============ MONITORING ============
+  tautulli:
+    container_name: tautulli
+    image: tautulli/tautulli
+    depends_on:
+      - plex
+    ports:
+      - "8181:8181"
+    environment:
+      - TZ=${TZ}
+    volumes:
+      - ${DOCKER_DIR}/tautulli:/config
+    restart: unless-stopped
