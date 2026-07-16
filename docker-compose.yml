@@ -70,7 +70,7 @@ services:
       - 6881:6881/udp # Torrent traffic (UDP)
     environment:
       - VPN_SERVICE_PROVIDER=private internet access
-      - VPN_TYPE=wireguard
+      - VPN_TYPE=openvpn
       - OPENVPN_USER=${OPENVPN_USERNAME:?OPENVPN_USERNAME must be set}
       - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:?OPENVPN_PASSWORD must be set}
       - SERVER_REGIONS=Switzerland
