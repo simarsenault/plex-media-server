@@ -59,19 +59,24 @@ services:
       - ${MEDIA_DIR}:/data
     restart: unless-stopped
 
-gluetun:
-  image: qmcgaw/gluetun
-  container_name: gluetun
-  cap_add:
-    - NET_ADMIN
-  environment:
-    - VPN_SERVICE_PROVIDER=private internet access
-    - VPN_TYPE=wireguard
-    - OPENVPN_USER=${OPENVPN_USERNAME:?OPENVPN_USERNAME must be set}
-    - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:?OPENVPN_PASSWORD must be set}
-    - SERVER_REGIONS=Switzerland
-    - PIA_PORT_FORWARDING=on
-  restart: unless-stopped
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 8080:8080 # Exposes qBittorrent Web UI
+      - 6881:6881 # Torrent traffic (TCP)
+      - 6881:6881/udp # Torrent traffic (UDP)
+    environment:
+      - VPN_SERVICE_PROVIDER=private internet access
+      - VPN_TYPE=wireguard
+      - OPENVPN_USER=${OPENVPN_USERNAME:?OPENVPN_USERNAME must be set}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:?OPENVPN_PASSWORD must be set}
+      - SERVER_REGIONS=Switzerland
+      - PIA_PORT_FORWARDING=on
+      - FIREWALL_OUTBOUND_SUBNETS=192.168.1.0/24 
+    restart: unless-stopped
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -81,6 +86,7 @@ gluetun:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - WEBUI_PORT=8080
     volumes:
       - ${DOCKER_DIR}/qbittorrent:/config
       - ${MEDIA_DIR}:/downloads

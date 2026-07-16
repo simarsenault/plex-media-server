@@ -41,6 +41,7 @@ docker compose exec transmission curl -s https://ipinfo.io | grep -E '"(ip|count
 ## URLS
 - Plex: http://ip:32400
 - Transmission: http://ip:9091/transmission/web
+- qbittorrent: http://ip:8080
 - Prowlarr: http://ip:9696
 - Sonarr: http://ip:8989
 - Radarr: http://ip:7878
