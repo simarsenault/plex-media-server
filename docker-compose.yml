@@ -12,7 +12,7 @@ services:
       - PLEX_CLAIM=${PLEX_CLAIM}
     volumes:
       - ${DOCKER_DIR}/plex:/config
-      - ${MEDIA_DIR}:/data # Gives Plex direct access to both /data/media/movies and /data/media/tv
+      - ${MEDIA_DIR}:/data
     restart: unless-stopped
 
   # --- INDEXER MANAGEMENT ---
@@ -57,6 +57,36 @@ services:
     volumes:
       - ${DOCKER_DIR}/transmission-home:/config/transmission-home
       - ${MEDIA_DIR}:/data
+    restart: unless-stopped
+
+gluetun:
+  image: qmcgaw/gluetun
+  container_name: gluetun
+  cap_add:
+    - NET_ADMIN
+  environment:
+    - VPN_SERVICE_PROVIDER=private internet access
+    - VPN_TYPE=wireguard
+    - OPENVPN_USER=${OPENVPN_USERNAME:?OPENVPN_USERNAME must be set}
+    - OPENVPN_PASSWORD=${OPENVPN_PASSWORD:?OPENVPN_PASSWORD must be set}
+    - SERVER_REGIONS=Switzerland
+    - PIA_PORT_FORWARDING=on
+  restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: "service:gluetun" # Routes traffic through gluetun
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${DOCKER_DIR}/qbittorrent:/config
+      - ${MEDIA_DIR}:/downloads
+    depends_on:
+      gluetun:
+        condition: service_healthy
     restart: unless-stopped
 
   # --- TV SHOW AUTOMATION ---
