@@ -65,7 +65,7 @@ services:
       - WEBUI_PORT=8080
     volumes:
       - ${DOCKER_DIR}:/config
-      - ${MEDIA_DIR}:/downloads
+      - ${MEDIA_DIR}:/data
     depends_on:
       gluetun:
         condition: service_healthy

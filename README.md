@@ -45,6 +45,10 @@ Check for qbittorrent password in logs:
 
 Open http://ip:8080 and use user `admin` and password found in logs.
 
+In `Settings` -> `Downloads`:
+1. Set `Default Save Path` to `/data/torrents`
+3. Save
+
 In `Settings` -> `BitTorrent`:
 1. Uncheck `Enable DHT (decentralized network) to find more peers`
 2. Uncheck `Enable Peer Exchange (PeX) to find more peers`
