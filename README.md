@@ -3,17 +3,16 @@
 ## Install
 Replace `user` by your username and `1000:1000` by your user id and group id. 
 
-Create directories:
+### Create directories
 
 ```
 mkdir /home/user/docker
 mkdir /home/user/data
 
-mkdir -p /home/user/docker/transmission-home
 mkdir -p /home/user/docker/tautulli
 
-mkdir -p /home/user/data/completed/radarr
-mkdir -p /home/user/data/completed/sonarr
+mkdir -p /home/user/data
+mkdir -p /home/user/data/torrents
 mkdir -p /home/user/data/media/tv
 mkdir -p /home/user/data/media/movies
 
@@ -21,27 +20,51 @@ mkdir -p /home/user/docker/seerr/config
 sudo chown -R "1000:1000" "/home/user/docker/seerr/config"
 ```
 
-Copy the .env file:
+### Copy the .env file
 
 ```
 cp .env.example .env
 ```
 
-Start:
+Edit `.env` with your values.
+
+### Start
 
 ```
 docker compose up -d
 ```
 
-Validate transmission VPN:
+### Validate glueton VPN
 
 ```
-docker compose exec transmission curl -s https://ipinfo.io | grep -E '"(ip|country)"'
+docker compose exec gluetun wget -qO- ifconfig.me ifconfig.me | grep ip_addr:
 ```
+
+### Configure qbittorrent
+
+Check for qbittorrent password in logs:
+
+```docker compose logs qbittorrent```
+
+Open http://ip:8080 and use user `admin` and password found in logs.
+
+In `Settings` -> `Downloads`:
+1. Set `Default Save Path` to `/data/torrents`
+3. Save
+
+In `Settings` -> `BitTorrent`:
+1. Uncheck `Enable DHT (decentralized network) to find more peers`
+2. Uncheck `Enable Peer Exchange (PeX) to find more peers`
+3. Save
+
+In `Settings` -> `WebUI`:
+1. Set a new password for the user `admin`
+2. Check `Bypass authentication for clients on localhost`
+3. Save
 
 ## URLS
 - Plex: http://ip:32400
-- Transmission: http://ip:9091/transmission/web
+- qbittorrent: http://ip:8080
 - Prowlarr: http://ip:9696
 - Sonarr: http://ip:8989
 - Radarr: http://ip:7878
