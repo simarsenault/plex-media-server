@@ -12,6 +12,7 @@ mkdir /home/user/data
 mkdir -p /home/user/docker/tautulli
 
 mkdir -p /home/user/data
+mkdir -p /home/user/data/torrents
 mkdir -p /home/user/data/media/tv
 mkdir -p /home/user/data/media/movies
 
