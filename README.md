@@ -38,7 +38,7 @@ docker compose up -d
 docker compose exec gluetun wget -qO- ifconfig.me ifconfig.me | grep ip_addr:
 ```
 
-### Enable API acces in qbittorrent
+### Configure qbittorrent
 
 Check for qbittorrent password in logs:
 
