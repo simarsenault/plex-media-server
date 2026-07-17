@@ -26,6 +26,8 @@ sudo chown -R "1000:1000" "/home/user/docker/seerr/config"
 cp .env.example .env
 ```
 
+Edit `.env` with your values.
+
 ### Start
 
 ```
